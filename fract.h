@@ -6,7 +6,7 @@
 /*   By: rqueverd <rqueverd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 17:44:01 by rqueverd          #+#    #+#             */
-/*   Updated: 2017/02/27 09:04:38 by rqueverd         ###   ########.fr       */
+/*   Updated: 2017/02/27 09:58:33 by rqueverd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_mbrot
 	float		i;
 	float		tmp;
 	int			id;
+	int			lock;
 }				t_mbrot;
 
 int				ft_event_zoom(int button, int x, int y, t_mbrot *mbrot);

@@ -6,7 +6,7 @@
 /*   By: rqueverd <rqueverd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/23 09:32:17 by rqueverd          #+#    #+#             */
-/*   Updated: 2017/02/27 09:13:23 by rqueverd         ###   ########.fr       */
+/*   Updated: 2017/02/27 10:14:06 by rqueverd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		init_env_tricorn(t_mbrot *mbrot)
 	mbrot->y1 = -1.2;
 	mbrot->x2 = 0.6;
 	mbrot->y2 = 1.2;
-	mbrot->itemax = 50;
+	mbrot->itemax = 200;
 	mbrot->image_x = WH;
 	mbrot->image_y = WH;
 	mbrot->y = 0;
@@ -26,6 +26,7 @@ void		init_env_tricorn(t_mbrot *mbrot)
 	mbrot->zoom_x = mbrot->image_x / (mbrot->x2 - mbrot->x1) / 1.1;
 	mbrot->zoom_y = mbrot->image_y / (mbrot->y2 - mbrot->y1) / 1.1;
 	mbrot->id = 3;
+	mbrot->lock = 1;
 }
 
 static void	init_const_t(t_mbrot *mbrot)
@@ -57,7 +58,7 @@ void		tricorn(t_mbrot *mbrot)
 			}
 			if (mbrot->i != mbrot->itemax)
 				mlx_put_pixel_image(mbrot->x, mbrot->y, mbrot,
-					(0x01FEDC * mbrot->i + 499 / 10) / mbrot->itemax);
+					(0x01FEDC * mbrot->i + 499 / 10) / 50);
 			mbrot->y++;
 		}
 		mbrot->x++;

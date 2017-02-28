@@ -6,7 +6,7 @@
 /*   By: rqueverd <rqueverd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/23 09:32:17 by rqueverd          #+#    #+#             */
-/*   Updated: 2017/02/27 08:54:18 by rqueverd         ###   ########.fr       */
+/*   Updated: 2017/02/27 09:52:38 by rqueverd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,23 @@ static int	check_main(int argc, char **argv, t_mbrot *mbrot)
 	return (1);
 }
 
+static int	ft_usage(int argc)
+{
+	if (argc == 1)
+	{
+		ft_putstr("usage: ./fractol julia or mandelbrot or tricorn\n");
+		return (0);
+	}
+	else
+		return (1);
+}
+
 int			main(int argc, char **argv)
 {
 	t_mbrot mbrot;
 
+	if (ft_usage(argc) == 0)
+		return (0);
 	if (check_main(argc, argv, &mbrot) == 0)
 		return (0);
 	mbrot.mlx = mlx_init();

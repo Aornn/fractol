@@ -6,7 +6,7 @@
 /*   By: rqueverd <rqueverd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/23 09:32:17 by rqueverd          #+#    #+#             */
-/*   Updated: 2017/02/27 09:09:00 by rqueverd         ###   ########.fr       */
+/*   Updated: 2017/02/27 12:30:24 by rqueverd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,39 @@ static void	exit_n_reset(int keycode, t_mbrot *mbrot)
 	}
 }
 
+static void	calc_delta_val(int keycode, t_mbrot *mbrot)
+{
+	if (keycode == 69)
+		mbrot->delta *= 1.15;
+	if (keycode == 78)
+		mbrot->delta /= 1.15;
+}
+
 int			ft_event(int keycode, t_mbrot *mbrot)
 {
 	exit_n_reset(keycode, mbrot);
+	if (mbrot->id == 2)
+	{
+		if (keycode == 37 && mbrot->lock == 0)
+			mbrot->lock = 1;
+		if (keycode == 32 && mbrot->lock == 1)
+			mbrot->lock = 0;
+	}
+	calc_delta_val(keycode, mbrot);
 	if (keycode == 18)
 		init_env_mandelbrot(mbrot);
 	if (keycode == 19)
 		init_env_julia(mbrot);
 	if (keycode == 20)
 		init_env_tricorn(mbrot);
-	if (keycode == 124)
-		mbrot->x1 += mbrot->delta / 1.1;
-	if (keycode == 123)
-		mbrot->x1 -= mbrot->delta / 1.1;
-	if (keycode == 126)
-		mbrot->y1 += mbrot->delta / 1.1;
-	if (keycode == 125)
-		mbrot->y1 -= mbrot->delta / 1.1;
+	if (keycode == 124 && mbrot->lock == 1)
+		mbrot->x1 += mbrot->delta;
+	if (keycode == 123 && mbrot->lock == 1)
+		mbrot->x1 -= mbrot->delta;
+	if (keycode == 126 && mbrot->lock == 1)
+		mbrot->y1 += mbrot->delta;
+	if (keycode == 125 && mbrot->lock == 1)
+		mbrot->y1 -= mbrot->delta;
 	draw_by_id(mbrot);
-	mlx_put_image_to_window(mbrot->mlx, mbrot->window, mbrot->img, 0, 0);
 	return (0);
 }

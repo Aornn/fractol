@@ -6,7 +6,7 @@
 /*   By: rqueverd <rqueverd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/23 09:32:17 by rqueverd          #+#    #+#             */
-/*   Updated: 2017/02/27 09:04:20 by rqueverd         ###   ########.fr       */
+/*   Updated: 2017/02/27 12:13:33 by rqueverd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	draw_by_id(t_mbrot *mbrot)
 		julia(mbrot);
 	if (mbrot->id == 3)
 		tricorn(mbrot);
+	mlx_put_image_to_window(mbrot->mlx, mbrot->window, mbrot->img, 0, 0);
 }
 
 int		ft_event_zoom(int button, int x, int y, t_mbrot *mbrot)
@@ -34,28 +35,31 @@ int		ft_event_zoom(int button, int x, int y, t_mbrot *mbrot)
 
 	tmpx = mbrot->zoom_x;
 	tmpy = mbrot->zoom_y;
-	if (button != 4 && button != 5)
-		return (0);
-	if (button == 5)
+	if (button == 5 && mbrot->lock == 1)
 	{
 		mbrot->zoom_y *= 1.1;
 		mbrot->zoom_x *= 1.1;
+		mbrot->delta /= 1.15;
+		if (mbrot->id == 1)
+			mbrot->itemax *= 1.05;
 	}
-	if (button == 4)
+	if (button == 4 && (mbrot->zoom_y > 20 && mbrot->zoom_x > 18) &&
+		mbrot->lock == 1)
 	{
 		mbrot->zoom_y /= 1.1;
 		mbrot->zoom_x /= 1.1;
+		if (mbrot->id == 1)
+			mbrot->delta *= 1.1;
 	}
 	mbrot->x1 += x / tmpx - (x / mbrot->zoom_x);
 	mbrot->y1 += y / tmpy - (y / mbrot->zoom_y);
 	draw_by_id(mbrot);
-	mlx_put_image_to_window(mbrot->mlx, mbrot->window, mbrot->img, 0, 0);
 	return (0);
 }
 
 int		ft_event_mouse_julia(int x, int y, t_mbrot *mbrot)
 {
-	if (mbrot->id == 2)
+	if (mbrot->id == 2 && mbrot->lock == 0)
 	{
 		if ((x < 800 && y < 800) && (x >= 0 && y >= 0))
 		{

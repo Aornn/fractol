@@ -6,7 +6,7 @@
 /*   By: rqueverd <rqueverd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/23 09:32:17 by rqueverd          #+#    #+#             */
-/*   Updated: 2017/02/27 08:34:52 by rqueverd         ###   ########.fr       */
+/*   Updated: 2017/02/27 09:59:04 by rqueverd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		init_env_mandelbrot(t_mbrot *mbrot)
 	mbrot->zoom_x = mbrot->image_x / (mbrot->x2 - mbrot->x1);
 	mbrot->zoom_y = mbrot->image_y / (mbrot->y2 - mbrot->y1);
 	mbrot->id = 1;
+	mbrot->lock = 1;
 }
 
 static void	init_const_m(t_mbrot *mbrot)
@@ -57,7 +58,7 @@ void		mandelbrot(t_mbrot *mbrot)
 			}
 			if (mbrot->i != mbrot->itemax)
 				mlx_put_pixel_image(mbrot->x, mbrot->y, mbrot,
-					(0x01FEDC * mbrot->i + 499 / 10) / mbrot->itemax);
+					(0x01FEDC * mbrot->i + 499 / 10) / 50);
 			mbrot->y++;
 		}
 		mbrot->x++;

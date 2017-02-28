@@ -6,7 +6,7 @@
 /*   By: rqueverd <rqueverd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/23 09:32:17 by rqueverd          #+#    #+#             */
-/*   Updated: 2017/02/27 08:34:46 by rqueverd         ###   ########.fr       */
+/*   Updated: 2017/02/27 10:04:27 by rqueverd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		init_env_julia(t_mbrot *mbrot)
 	mbrot->cr = -0.41;
 	mbrot->ci = 0.6;
 	mbrot->id = 2;
+	mbrot->lock = 0;
 }
 
 static void	init_const_j(t_mbrot *mbrot)
@@ -57,7 +58,7 @@ void		julia(t_mbrot *mbrot)
 			}
 			if (mbrot->i != mbrot->itemax)
 				mlx_put_pixel_image(mbrot->x, mbrot->y, mbrot,
-					(0x01FEDC * mbrot->i + 499 / 10) / mbrot->itemax * 10);
+					(0x01FEDC * mbrot->i));
 			mbrot->y++;
 		}
 		mbrot->x++;
